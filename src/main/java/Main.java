@@ -41,17 +41,17 @@ public class Main {
 //					.header("Accept-Encoding", "gzip, deflate, sdch")
 //					.userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (HTML, like Gecko)")
 //					.get();
-            doc2 = Jsoup.connect(urlNewsSite2).userAgent("Mozilla").get();
-            doc3 = Jsoup.connect(urlNewsSite3).userAgent("Mozilla").get();
+            doc2 = Jsoup.connect(urlNewsSite2).get();
+            doc3 = Jsoup.connect(urlNewsSite3).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
 		assert doc != null;
 //		Elements h2Ref = doc.getElementsByAttributeValue("class", "rubric-list__article-title");
 		assert doc2 != null;
-		Elements h2Ref2 = doc2.getElementsByAttributeValue("class", "titles");
+		Elements h2Ref2 = doc2.getElementsByAttributeValue("class", "card-mini _longgrid");
 		assert doc3 != null;
-		Elements h2Ref3 = doc3.getElementsByAttributeValue("class", "txt_2b");
+		Elements h2Ref3 = doc3.getElementsByAttributeValue("class", "b_ear-title");
 
         List<String> articleList = new ArrayList();
         
@@ -69,8 +69,8 @@ public class Main {
     static public void add(List articleList, Elements h2Ref, String mainUrl) {
     	articleList.add(mainUrl);
     	for(Element h2 : h2Ref) {
-            String url = mainUrl + h2.child(0).attr("href");
-            String title = h2.child(0).text();
+            String url = mainUrl + h2.attr("href");
+            String title = h2.text();
 
             articleList.add(title + "  " + url);
         };
